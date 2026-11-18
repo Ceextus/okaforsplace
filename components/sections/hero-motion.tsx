@@ -29,8 +29,6 @@ export function HeroMotion({ children, ...props }: React.ComponentProps<"section
 
           tl.from("[data-hero-media]", { scale: 1.14, duration: 2, ease: "expo.out" }, 0)
             .from("[data-hero-line]", { scaleY: 0, transformOrigin: "top", autoAlpha: 0, duration: 1.3, stagger: 0.08 }, 0.05)
-            .from("[data-hero-reveal]:first-child", { y: 16, autoAlpha: 0, duration: 0.7 }, 0.3)
-            .from("[data-hero-reveal]:not(:first-child)", { y: 18, autoAlpha: 0, duration: 0.7, stagger: 0.07 }, 0.75)
             .from(
               "[data-hero-photo]",
               { clipPath: "inset(100% 0% 0% 0%)", autoAlpha: 0, duration: 1.1, ease: "expo.inOut" },

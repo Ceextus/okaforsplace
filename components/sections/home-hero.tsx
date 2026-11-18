@@ -78,7 +78,11 @@ export function HomeHero() {
               key={i}
               data-hero-line
               data-enter
-              className={cn("border-l border-cream/10 last:border-r", i > 1 && "hidden lg:block", i === 1 && "border-r lg:border-r-0")}
+              className={cn(
+                "border-l border-cream/10 last:border-r",
+                i > 1 && "hidden lg:block",
+                i === 1 && "border-r lg:border-r-0",
+              )}
             />
           ))}
         </div>
@@ -92,9 +96,8 @@ export function HomeHero() {
             className="flex flex-col justify-end pb-[max(2rem,env(safe-area-inset-bottom))] lg:col-span-3 lg:pr-12 lg:pb-12"
           >
             <p
-              data-hero-reveal
-              data-enter
-              className="inline-flex w-fit items-center gap-2.5 rounded-full border border-cream/15 bg-navy/40 py-2 pr-4 pl-3 text-sm font-medium text-cream/90 backdrop-blur-md"
+              style={{ "--d": "0.2s" } as React.CSSProperties}
+              className="rise-in inline-flex w-fit items-center gap-2.5 rounded-full border border-cream/15 bg-navy/40 py-2 pr-4 pl-3 text-sm font-medium text-cream/90 backdrop-blur-md"
             >
               <span className="relative flex size-2.5" aria-hidden="true">
                 <span className="absolute inset-0 animate-ping rounded-full bg-gold/70 motion-reduce:hidden" />
@@ -116,13 +119,21 @@ export function HomeHero() {
               </RiseWord>
             </h1>
 
-            <p data-hero-reveal data-enter className="mt-6 max-w-[34rem] text-[1.0625rem] leading-relaxed text-cream/80 lg:max-w-[40rem] lg:text-lg">
+            <p
+              style={{ "--d": "0.6s" } as React.CSSProperties}
+              className="rise-in mt-6 max-w-[34rem] text-[1.0625rem] leading-relaxed text-cream/80 lg:max-w-[40rem] lg:text-lg"
+            >
               A welcoming space for meaningful connections, business conversations, buying and selling, and guidance
               that helps you make more informed decisions.
             </p>
 
             {/* Inline pre-register field: sends the number on to /register (works without JS) */}
-            <form data-hero-reveal data-enter action="/register" method="get" className="mt-7 w-full max-w-[30rem]">
+            <form
+              style={{ "--d": "0.7s" } as React.CSSProperties}
+              action="/register"
+              method="get"
+              className="rise-in mt-7 w-full max-w-[30rem]"
+            >
               <label htmlFor="hero-phone" className="mb-2.5 block text-sm font-medium text-cream/75">
                 Pre-register with your number. It takes 30 seconds.
               </label>
@@ -156,11 +167,10 @@ export function HomeHero() {
             </form>
 
             <a
-              data-hero-reveal
-              data-enter
               href={waLink("general")}
               {...externalLinkProps}
-              className="group mt-5 inline-flex w-fit items-center gap-2 py-2 text-[0.9375rem] font-semibold text-cream"
+              style={{ "--d": "0.8s" } as React.CSSProperties}
+              className="rise-in group mt-5 inline-flex w-fit items-center gap-2 py-2 text-[0.9375rem] font-semibold text-cream"
             >
               <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-300 ease-out group-hover:bg-[length:100%_1px]">
                 Or chat with us on WhatsApp
@@ -247,7 +257,9 @@ export function HomeHero() {
                 />
               </span>
               <span>
-                <span className="block font-heading text-lg leading-tight font-semibold xl:text-[1.375rem]">{p.title}</span>
+                <span className="block font-heading text-lg leading-tight font-semibold xl:text-[1.375rem]">
+                  {p.title}
+                </span>
                 <span className="mt-1 block text-sm opacity-75">{p.line}</span>
               </span>
             </Link>

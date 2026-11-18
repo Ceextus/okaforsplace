@@ -165,6 +165,17 @@
   }
 }
 
+/* Hero copy: fades up once on load, CSS only, staggered by --d. */
+.rise-in {
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
 /* One-pass gold sheen over a headline (register success). Added by JS only, so reduced
    motion / no JS shows plain navy text. */
 .sheen-run {

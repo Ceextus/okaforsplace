@@ -108,10 +108,9 @@ function PrimaryCard() {
         </div>
 
         <div className="hidden lg:col-span-5 lg:block">
-          <div data-wipe className="relative h-full min-h-[420px] overflow-hidden rounded-[28px] bg-navy">
+          <div className="rise-in relative h-full min-h-[420px] overflow-hidden rounded-[28px] bg-navy">
             <div data-parallax="5" className="absolute inset-x-0 -inset-y-[7%]">
               <Image
-                data-wipe-img
                 src="/images/hero-abuja-dusk.jpg"
                 alt="Guests on a rooftop lounge over Abuja at dusk"
                 fill

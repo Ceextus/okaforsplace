@@ -1,0 +1,7 @@
+# Netlify build settings (the Next.js runtime is added automatically by @netlify/plugin-nextjs).
+
+[build.environment]
+  # NEXT_PUBLIC_SITE_URL is the public domain (https://okaforsplace.com.ng). It is meant to
+  # appear in every page (canonical links, sitemap, share tags), so the secrets scanner must
+  # not treat it as a secret. SUPABASE_SERVICE_ROLE_KEY stays scanned.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SITE_URL"

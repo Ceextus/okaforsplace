@@ -32,14 +32,12 @@ export function AboutHero() {
           </p>
         </div>
 
-        {/* Wide photograph: wipes open once on load (in colour from the start), then drifts on scroll */}
-        <div
-          data-wipe
-          className="relative mt-12 aspect-[4/5] overflow-hidden rounded-[28px] bg-navy sm:aspect-[16/9] lg:mt-16 lg:aspect-[21/9]"
-        >
+        {/* Wide photograph (LCP on About): visible at first paint, eager + high priority; drifts on scroll */}
+        <div className="rise-in relative mt-12 aspect-[4/5] overflow-hidden rounded-[28px] bg-navy sm:aspect-[16/9] lg:mt-16 lg:aspect-[21/9]">
           <div data-parallax="5" className="absolute inset-x-0 -inset-y-[7%]">
             <Image
-              data-wipe-img
+              loading="eager"
+              fetchPriority="high"
               src="/images/abuja-city-highway.jpg"
               alt="Elevated highway interchange curving through a green city skyline"
               fill
