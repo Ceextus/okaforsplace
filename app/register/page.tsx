@@ -64,17 +64,20 @@ export default function RegisterPage() {
       <div className="shell grid gap-12 pt-32 pb-20 lg:grid-cols-12 lg:gap-x-6 lg:pt-40 lg:pb-32">
         {/* Left: heading, perks, photo */}
         <div className="lg:col-span-5">
-          <p data-rise className="eyebrow text-gold">
+          <p style={{ "--d": "0.1s" } as React.CSSProperties} className="rise-in eyebrow text-gold">
             Pre-registration
           </p>
           <h1
             id="register-title"
-            data-split
-            className="mt-5 text-[clamp(2.75rem,5.4vw,5rem)] leading-[0.96] text-cream"
+            style={{ "--d": "0.18s" } as React.CSSProperties}
+            className="settle mt-5 text-[clamp(2.75rem,5.4vw,5rem)] leading-[0.96] text-cream"
           >
             Be first through <span className="text-gold">the door.</span>
           </h1>
-          <p data-rise className="mt-6 max-w-[40ch] text-lg leading-relaxed text-cream/75">
+          <p
+            style={{ "--d": "0.3s" } as React.CSSProperties}
+            className="rise-in mt-6 max-w-[40ch] text-lg leading-relaxed text-cream/75"
+          >
             We&rsquo;re launching soon. Leave your details and we&rsquo;ll reach out when we open.
           </p>
 
@@ -94,7 +97,7 @@ export default function RegisterPage() {
 
         {/* Right: the form card */}
         <div className="lg:col-span-6 lg:col-start-7">
-          <div data-rise className="lg:sticky lg:top-28">
+          <div style={{ "--d": "0.35s" } as React.CSSProperties} className="rise-in lg:sticky lg:top-28">
             <div className="rounded-[28px] bg-cream p-6 text-ink shadow-[0_40px_80px_-30px_rgb(0_0_0/0.6)] sm:p-10">
               <RegisterForm />
             </div>

@@ -33,7 +33,7 @@ const PILLARS = [
 function RiseWord({ i, className, children }: { i: number; className?: string; children: React.ReactNode }) {
   return (
     <span className="rise-mask">
-      <span className={cn("rise-word", className)} style={{ animationDelay: `${0.35 + i * 0.08}s` }}>
+      <span className={cn("rise-word", className)} style={{ animationDelay: `${0.1 + i * 0.07}s` }}>
         {children}
       </span>
     </span>
@@ -55,16 +55,18 @@ export function HomeHero() {
       {/* Photograph + tint (never hidden; settles on load, drifts on scroll) */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <div data-hero-media className="absolute inset-0 will-change-transform">
-          <Image
-            src="/images/abuja-skyline-dusk.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            quality={60}
-            loading="eager"
-            fetchPriority="high"
-            className="object-cover object-[50%_65%]"
-          />
+          <div className="hero-zoom absolute inset-0">
+            <Image
+              src="/images/abuja-skyline-dusk.jpg"
+              alt=""
+              fill
+              sizes="100vw"
+              quality={60}
+              loading="eager"
+              fetchPriority="high"
+              className="object-cover object-[50%_65%]"
+            />
+          </div>
         </div>
         <div className="absolute inset-0 bg-[linear-gradient(0deg,#071d3b_0%,rgb(7_29_59/0.88)_38%,rgb(7_29_59/0.35)_72%,rgb(7_29_59/0.55)_100%)] lg:bg-[linear-gradient(90deg,rgb(7_29_59/0.94)_0%,rgb(7_29_59/0.72)_42%,rgb(7_29_59/0.2)_100%)]" />
         <div className="absolute inset-x-0 bottom-0 hidden h-72 bg-linear-to-t from-navy/90 to-transparent lg:block" />
@@ -76,10 +78,9 @@ export function HomeHero() {
           {[0, 1, 2, 3].map((i) => (
             <div
               key={i}
-              data-hero-line
-              data-enter
+              style={{ "--d": `${0.05 + i * 0.08}s` } as React.CSSProperties}
               className={cn(
-                "border-l border-cream/10 last:border-r",
+                "line-draw border-l border-cream/10 last:border-r",
                 i > 1 && "hidden lg:block",
                 i === 1 && "border-r lg:border-r-0",
               )}
@@ -97,7 +98,7 @@ export function HomeHero() {
           >
             <p
               style={{ "--d": "0.2s" } as React.CSSProperties}
-              className="rise-in inline-flex w-fit items-center gap-2.5 rounded-full border border-cream/15 bg-navy/40 py-2 pr-4 pl-3 text-sm font-medium text-cream/90 backdrop-blur-md"
+              className="rise-in inline-flex w-fit items-center gap-2.5 rounded-full border border-cream/15 bg-navy/75 py-2 pr-4 pl-3 text-sm font-medium text-cream/90"
             >
               <span className="relative flex size-2.5" aria-hidden="true">
                 <span className="absolute inset-0 animate-ping rounded-full bg-gold/70 motion-reduce:hidden" />
@@ -185,11 +186,10 @@ export function HomeHero() {
 
           {/* Client's rooftop photo as a linked tile (desktop) */}
           <a
-            data-hero-photo
-            data-enter
             href={waLink("join")}
             {...externalLinkProps}
-            className="group relative hidden self-end overflow-hidden lg:block lg:h-[min(46vh,360px)]"
+            style={{ "--d": "0.55s" } as React.CSSProperties}
+            className="clip-up group relative hidden self-end overflow-hidden lg:block lg:h-[min(46vh,360px)]"
           >
             <Image
               src="/images/hero-abuja-dusk.jpg"
@@ -215,20 +215,22 @@ export function HomeHero() {
 
         {/* Foot row of grid cells: one fact + the three pillars (desktop) */}
         <div data-hero-row className="hidden h-[168px] grid-cols-4 border-t border-cream/10 lg:grid">
-          <div data-hero-tile data-enter className="flex flex-col justify-between bg-gold p-5 text-navy xl:p-6">
+          <div
+            style={{ "--d": "0.8s" } as React.CSSProperties}
+            className="rise-in flex flex-col justify-between bg-gold p-5 text-navy xl:p-6"
+          >
             <span className="eyebrow text-navy/70">Three ways in</span>
             <p className="font-heading text-[1.375rem] leading-[1.08] font-semibold xl:text-[1.75rem]">
               One community, three ways to take part.
             </p>
           </div>
 
-          {PILLARS.map((p) => (
+          {PILLARS.map((p, i) => (
             <Link
               key={p.href}
               href={p.href}
-              data-hero-tile
-              data-enter
-              className="group relative isolate flex flex-col justify-between overflow-hidden border-l border-cream/10 p-5 text-cream xl:p-6 transition-colors duration-300 hover:text-navy focus-visible:text-navy"
+              style={{ "--d": `${0.88 + i * 0.08}s` } as React.CSSProperties}
+              className="rise-in group relative isolate flex flex-col justify-between overflow-hidden border-l border-cream/10 p-5 text-cream xl:p-6 transition-colors duration-300 hover:text-navy focus-visible:text-navy"
             >
               {/* cream fill rises from the cell's foot on hover */}
               <span

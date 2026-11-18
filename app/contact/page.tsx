@@ -46,14 +46,21 @@ function ContactHero() {
       />
       <div className="shell grid gap-6 pt-32 pb-40 lg:grid-cols-12 lg:items-end lg:gap-x-6 lg:pt-44 lg:pb-56">
         <div className="lg:col-span-7">
-          <p data-rise className="eyebrow text-gold">
+          <p style={{ "--d": "0.1s" } as React.CSSProperties} className="rise-in eyebrow text-gold">
             Contact
           </p>
-          <h1 id="contact-title" data-split className="mt-5 text-[clamp(3.25rem,8vw,7rem)] leading-[0.92] text-cream">
+          <h1
+            id="contact-title"
+            style={{ "--d": "0.18s" } as React.CSSProperties}
+            className="settle mt-5 text-[clamp(3.25rem,8vw,7rem)] leading-[0.92] text-cream"
+          >
             Let&rsquo;s <span className="text-gold">connect.</span>
           </h1>
         </div>
-        <p data-rise className="max-w-[38ch] text-lg leading-relaxed text-cream/75 lg:col-span-4 lg:col-start-9 lg:pb-3">
+        <p
+          style={{ "--d": "0.3s" } as React.CSSProperties}
+          className="rise-in max-w-[38ch] text-lg leading-relaxed text-cream/75 lg:col-span-4 lg:col-start-9 lg:pb-3"
+        >
           Have a question or an opportunity? Tell us what you need, and we&rsquo;ll get back to you.
         </p>
       </div>
@@ -67,7 +74,7 @@ function PrimaryCard() {
   return (
     <SectionMotion aria-label="Message us on WhatsApp" className="relative z-10">
       <div className="shell -mt-28 grid gap-6 lg:-mt-40 lg:grid-cols-12 lg:gap-x-6">
-        <div data-rise className="lg:col-span-7">
+        <div style={{ "--d": "0.4s" } as React.CSSProperties} className="rise-in lg:col-span-7">
           <div className="flex h-full flex-col rounded-[28px] bg-white p-6 shadow-[0_40px_80px_-36px_rgb(7_29_59/0.45)] sm:p-10 lg:p-12">
             <div className="flex items-center gap-4">
               <span className="grid size-14 place-items-center rounded-2xl bg-whatsapp text-white">

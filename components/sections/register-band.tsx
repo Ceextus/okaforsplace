@@ -1,11 +1,10 @@
 "use client"
 
 import { useRef } from "react"
+import { EASE, useMotion } from "@/lib/motion"
 import Link from "next/link"
 
 import { ButtonArrow, buttonVariants } from "@/components/ui/button"
-import { onIdle } from "@/lib/idle"
-import { EASE, SplitText, gsap, useGSAP } from "@/lib/gsap"
 import { cn } from "@/lib/utils"
 
 /**
@@ -16,66 +15,54 @@ import { cn } from "@/lib/utils"
 export function RegisterBand() {
   const ref = useRef<HTMLElement>(null)
 
-  useGSAP(
-    () => {
-      const root = ref.current
-      if (!root) return
-      const mm = gsap.matchMedia(root)
-      // Set up when the main thread is idle: keeps scroll animations off the load path.
-      const cancelIdle = onIdle(() =>
-        mm.add("(prefers-reduced-motion: no-preference)", (ctx) => {
-          gsap
-            .timeline({
+  useMotion(ref, ({ gsap, SplitText }, root, ctx) => {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: root,
+          start: "top bottom",
+          end: "center 62%",
+          scrub: 0.8,
+        },
+      })
+      .fromTo("[data-half-a]", { x: -22, y: 22 }, { x: 0, y: 0, ease: "power2.out" }, 0)
+      .fromTo("[data-half-b]", { x: 22, y: -22 }, { x: 0, y: 0, ease: "power2.out" }, 0)
+      .fromTo("[data-band-mark]", { rotate: -25 }, { rotate: 0, ease: "power2.out" }, 0)
+
+    const words = () =>
+      ctx.add(() => {
+        SplitText.create("[data-band-title]", {
+          type: "words",
+          mask: "words",
+          autoSplit: true,
+          onSplit: (self) =>
+            gsap.from(self.words, {
+              yPercent: 110,
+              duration: 0.9,
+              ease: EASE.enter,
+              stagger: 0.05,
               scrollTrigger: {
                 trigger: root,
-                start: "top bottom",
-                end: "center 62%",
-                scrub: 0.8,
+                start: "top 75%",
+                once: true,
               },
-            })
-            .fromTo("[data-half-a]", { x: -22, y: 22 }, { x: 0, y: 0, ease: "power2.out" }, 0)
-            .fromTo("[data-half-b]", { x: 22, y: -22 }, { x: 0, y: 0, ease: "power2.out" }, 0)
-            .fromTo("[data-band-mark]", { rotate: -25 }, { rotate: 0, ease: "power2.out" }, 0)
+            }),
+        })
+      })
+    if (document.fonts?.status === "loaded") words()
+    else document.fonts.ready.then(() => words())
 
-          const words = () =>
-            ctx.add(() => {
-              SplitText.create("[data-band-title]", {
-                type: "words",
-                mask: "words",
-                autoSplit: true,
-                onSplit: (self) =>
-                  gsap.from(self.words, {
-                    yPercent: 110,
-                    duration: 0.9,
-                    ease: EASE.enter,
-                    stagger: 0.05,
-                    scrollTrigger: {
-                      trigger: root,
-                      start: "top 75%",
-                      once: true,
-                    },
-                  }),
-              })
-            })
-          if (document.fonts?.status === "loaded") words()
-          else document.fonts.ready.then(() => words())
-
-          gsap.from("[data-band-rise]", {
-            y: 24,
-            autoAlpha: 0,
-            duration: 0.8,
-            ease: EASE.enter,
-            stagger: 0.08,
-            delay: 0.3,
-            clearProps: "transform",
-            scrollTrigger: { trigger: root, start: "top 75%", once: true },
-          })
-        }),
-      )
-      return () => cancelIdle()
-    },
-    { scope: ref },
-  )
+    gsap.from("[data-band-rise]", {
+      y: 24,
+      autoAlpha: 0,
+      duration: 0.8,
+      ease: EASE.enter,
+      stagger: 0.08,
+      delay: 0.3,
+      clearProps: "transform",
+      scrollTrigger: { trigger: root, start: "top 75%", once: true },
+    })
+  })
 
   return (
     <section

@@ -1,8 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { gsap, useGSAP } from "@/lib/gsap"
-import { onIdle } from "@/lib/idle"
+import { useMotion } from "@/lib/motion"
 
 const STEPS = [
   {
@@ -30,58 +29,45 @@ const STEPS = [
 export function ApproachSteps() {
   const ref = useRef<HTMLOListElement>(null)
 
-  useGSAP(
-    () => {
-      const root = ref.current
-      if (!root) return
-      const mm = gsap.matchMedia(root)
+  useMotion(ref, ({ gsap }, root) => {
+    const steps = gsap.utils.toArray<HTMLElement>("[data-step]", root)
+    const dot = (s: HTMLElement) => s.querySelector("[data-step-dot]")
+    const words = (s: HTMLElement) => s.querySelectorAll("[data-step-words]")
+    const fill = (s: HTMLElement) => s.querySelector("[data-step-fill]")
 
-      // Set up when the main thread is idle: keeps scroll animations off the load path.
-      const cancelIdle = onIdle(() =>
-        mm.add("(prefers-reduced-motion: no-preference)", () => {
-          const steps = gsap.utils.toArray<HTMLElement>("[data-step]", root)
-          const dot = (s: HTMLElement) => s.querySelector("[data-step-dot]")
-          const words = (s: HTMLElement) => s.querySelectorAll("[data-step-words]")
-          const fill = (s: HTMLElement) => s.querySelector("[data-step-fill]")
+    steps.forEach((s) => {
+      gsap.set(dot(s), {
+        backgroundColor: "#071d3b",
+        borderColor: "rgb(255 248 233 / 0.3)",
+        scale: 0.8,
+      })
+      gsap.set(s.querySelector("[data-step-core]"), { scale: 0 })
+      gsap.set(words(s), { opacity: 0.55 })
+      if (fill(s)) gsap.set(fill(s), { scale: 0 })
+    })
 
-          steps.forEach((s) => {
-            gsap.set(dot(s), {
-              backgroundColor: "#071d3b",
-              borderColor: "rgb(255 248 233 / 0.3)",
-              scale: 0.8,
-            })
-            gsap.set(s.querySelector("[data-step-core]"), { scale: 0 })
-            gsap.set(words(s), { opacity: 0.55 })
-            if (fill(s)) gsap.set(fill(s), { scale: 0 })
-          })
+    const tl = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: {
+        trigger: root,
+        start: "top 72%",
+        end: "bottom 40%",
+        scrub: 0.6,
+      },
+    })
 
-          const tl = gsap.timeline({
-            defaults: { ease: "none" },
-            scrollTrigger: {
-              trigger: root,
-              start: "top 72%",
-              end: "bottom 40%",
-              scrub: 0.6,
-            },
-          })
-
-          steps.forEach((s) => {
-            tl.to(dot(s), {
-              backgroundColor: "#f3c96f",
-              borderColor: "#f3c96f",
-              scale: 1,
-              duration: 0.25,
-            })
-              .to(s.querySelector("[data-step-core]"), { scale: 1, duration: 0.2 }, "<")
-              .to(words(s), { opacity: 1, duration: 0.3 }, "<")
-            if (fill(s)) tl.to(fill(s), { scale: 1, duration: 1 })
-          })
-        }),
-      )
-      return () => cancelIdle()
-    },
-    { scope: ref },
-  )
+    steps.forEach((s) => {
+      tl.to(dot(s), {
+        backgroundColor: "#f3c96f",
+        borderColor: "#f3c96f",
+        scale: 1,
+        duration: 0.25,
+      })
+        .to(s.querySelector("[data-step-core]"), { scale: 1, duration: 0.2 }, "<")
+        .to(words(s), { opacity: 1, duration: 0.3 }, "<")
+      if (fill(s)) tl.to(fill(s), { scale: 1, duration: 1 })
+    })
+  })
 
   return (
     <ol ref={ref} className="grid gap-12 lg:grid-cols-3 lg:gap-6">

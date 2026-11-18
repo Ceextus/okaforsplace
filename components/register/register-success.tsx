@@ -1,11 +1,11 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import Link from "next/link"
 import { MessageCircle } from "lucide-react"
 
 import { buttonVariants } from "@/components/ui/button"
-import { EASE, gsap, useGSAP } from "@/lib/gsap"
+import { EASE, useMotion } from "@/lib/motion"
 import type { RegisterState } from "@/lib/pre-registration"
 import { externalLinkProps, waLink } from "@/lib/site"
 import { cn } from "@/lib/utils"
@@ -25,22 +25,25 @@ export function RegisterSuccess({ state }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const ok = state.status === "success"
 
-  useGSAP(
-    () => {
-      ref.current?.querySelector<HTMLElement>("[data-success-title]")?.focus()
-      const mm = gsap.matchMedia(ref.current ?? undefined)
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap
-          .timeline({ defaults: { ease: EASE.enter } })
-          .from(ref.current, { y: 16, autoAlpha: 0, duration: 0.6 })
-          .fromTo("[data-ring-a]", { x: -16, y: 16 }, { x: 0, y: 0, duration: 0.9 }, 0.1)
-          .fromTo("[data-ring-b]", { x: 16, y: -16 }, { x: 0, y: 0, duration: 0.9 }, 0.1)
-          .fromTo("[data-ring-mark]", { rotate: -40, scale: 0.85 }, { rotate: 0, scale: 1, duration: 1.1 }, 0.1)
-          .from("[data-success-rise]", { y: 16, autoAlpha: 0, duration: 0.6, stagger: 0.07 }, 0.55)
-          .add(() => ref.current?.querySelector("[data-sheen]")?.classList.add("sheen-run"), 0.9)
-      })
+  // Focus the headline for screen readers right away (with or without motion).
+  useEffect(() => {
+    ref.current?.querySelector<HTMLElement>("[data-success-title]")?.focus()
+  }, [])
+
+  // The visitor just submitted, so load GSAP now rather than at idle.
+  useMotion(
+    ref,
+    ({ gsap }, root) => {
+      gsap
+        .timeline({ defaults: { ease: EASE.enter } })
+        .from(root, { y: 16, autoAlpha: 0, duration: 0.6 })
+        .fromTo("[data-ring-a]", { x: -16, y: 16 }, { x: 0, y: 0, duration: 0.9 }, 0.1)
+        .fromTo("[data-ring-b]", { x: 16, y: -16 }, { x: 0, y: 0, duration: 0.9 }, 0.1)
+        .fromTo("[data-ring-mark]", { rotate: -40, scale: 0.85 }, { rotate: 0, scale: 1, duration: 1.1 }, 0.1)
+        .from("[data-success-rise]", { y: 16, autoAlpha: 0, duration: 0.6, stagger: 0.07 }, 0.55)
+        .add(() => root.querySelector("[data-sheen]")?.classList.add("sheen-run"), 0.9)
     },
-    { scope: ref },
+    { idle: false },
   )
 
   return (

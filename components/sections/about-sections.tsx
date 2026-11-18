@@ -16,16 +16,20 @@ export function AboutHero() {
       <div className="shell">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-x-6">
           <div className="lg:col-span-7">
-            <p data-rise className="eyebrow text-gold-text">
+            <p style={{ "--d": "0.1s" } as React.CSSProperties} className="rise-in eyebrow text-gold-text">
               About us
             </p>
-            <h1 id="about-title" data-split className="mt-5 text-[clamp(3rem,7vw,6.5rem)] leading-[0.94] text-navy">
+            <h1
+              id="about-title"
+              style={{ "--d": "0.18s" } as React.CSSProperties}
+              className="settle mt-5 text-[clamp(3rem,7vw,6.5rem)] leading-[0.94] text-navy"
+            >
               A place built on <span className="text-gold-large">trust.</span>
             </h1>
           </div>
           <p
-            data-rise
-            className="max-w-[40ch] text-lg leading-relaxed text-ink/80 lg:col-span-4 lg:col-start-9 lg:pb-3"
+            style={{ "--d": "0.3s" } as React.CSSProperties}
+            className="rise-in max-w-[40ch] text-lg leading-relaxed text-ink/80 lg:col-span-4 lg:col-start-9 lg:pb-3"
           >
             A welcoming space for meaningful connections, business conversations, buying and selling, and guidance that
             helps you make more informed decisions.
@@ -33,7 +37,10 @@ export function AboutHero() {
         </div>
 
         {/* Wide photograph (LCP on About): visible at first paint, eager + high priority; drifts on scroll */}
-        <div className="rise-in relative mt-12 aspect-[4/5] overflow-hidden rounded-[28px] bg-navy sm:aspect-[16/9] lg:mt-16 lg:aspect-[21/9]">
+        <div
+          style={{ "--d": "0.25s" } as React.CSSProperties}
+          className="settle relative mt-12 aspect-[4/3] overflow-hidden rounded-[28px] bg-navy sm:aspect-[16/9] lg:mt-16 lg:aspect-[21/9]"
+        >
           <div data-parallax="5" className="absolute inset-x-0 -inset-y-[7%]">
             <Image
               loading="eager"
@@ -41,7 +48,7 @@ export function AboutHero() {
               src="/images/abuja-city-highway.jpg"
               alt="Elevated highway interchange curving through a green city skyline"
               fill
-              sizes="(min-width: 1024px) 90vw, 260vw"
+              sizes="(min-width: 1024px) 90vw, 100vw"
               className="object-cover object-[60%_55%] lg:object-[60%_78%]"
             />
           </div>

@@ -1,4 +1,3 @@
-import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
@@ -6,6 +5,8 @@ import { cn } from "cn"
  * Brand buttons (style guide, "Buttons · all states"):
  * pill shape, lift 2px on hover, press back down, gold focus ring (global :focus-visible).
  * Use `buttonVariants()` on <Link>/<a> for navigation, <Button> for actions.
+ * <Button> is a plain <button> (not Base UI's primitive) so importing this file never pulls
+ * Base UI into the initial bundle; dialogs/sheets that need Base UI load it lazily.
  */
 const buttonVariantsBase = cva(
   "group/button inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-transparent font-semibold whitespace-nowrap transition-[transform,box-shadow,background-color,color,border-color] duration-200 ease-out select-none disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-[1.125em]",
@@ -58,9 +59,9 @@ function Button({
   variant = "default",
   size = "default",
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariantsBase>) {
+}: React.ComponentProps<"button"> & VariantProps<typeof buttonVariantsBase>) {
   return (
-    <ButtonPrimitive
+    <button
       data-slot="button"
       className={cn(buttonVariantsBase({ variant, size, className }))}
       {...props}
