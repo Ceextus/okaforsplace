@@ -176,6 +176,29 @@
   }
 }
 
+/* Skeleton loaders: blocks with a moving shimmer (never spinners). -light for paper grounds. */
+.shimmer,
+.shimmer-light {
+  background: linear-gradient(100deg, var(--sk-base) 40%, var(--sk-shine) 50%, var(--sk-base) 60%) 0 0 / 300% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+.shimmer {
+  --sk-base: rgb(255 248 233 / 0.08);
+  --sk-shine: rgb(255 248 233 / 0.18);
+}
+.shimmer-light {
+  --sk-base: rgb(7 29 59 / 0.06);
+  --sk-shine: rgb(7 29 59 / 0.12);
+}
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
 /* One-pass gold sheen over a headline (register success). Added by JS only, so reduced
    motion / no JS shows plain navy text. */
 .sheen-run {

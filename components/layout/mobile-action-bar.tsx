@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils"
 export function MobileActionBar() {
   const pathname = usePathname()
   const ref = useRef<HTMLDivElement>(null)
-  const hidden = pathname === "/register"
+  const hidden = pathname === "/register" || pathname.startsWith("/admin")
 
   useGSAP(
     () => {
