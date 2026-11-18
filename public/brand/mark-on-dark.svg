@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="256" height="256"><g transform="translate(0 0) scale(1)">
+  <defs>
+    <clipPath id="md-a"><path d="M-40 -40H101.74L-40 101.74Z"/></clipPath>
+    <clipPath id="md-b"><path d="M104 104H-37.74L104 -37.74Z"/></clipPath>
+  </defs>
+  <path d="M9 32a23 23 0 1 0 46 0a23 23 0 1 0 -46 0ZM19.5 32a12.5 12.5 0 1 0 25 0a12.5 12.5 0 1 0 -25 0Z" fill-rule="evenodd" fill="#FFF8E9" clip-path="url(#md-a)" transform="translate(-1.41 1.41)"/>
+  <path d="M9 32a23 23 0 1 0 46 0a23 23 0 1 0 -46 0ZM19.5 32a12.5 12.5 0 1 0 25 0a12.5 12.5 0 1 0 -25 0Z" fill-rule="evenodd" fill="#F3C96F" clip-path="url(#md-b)" transform="translate(1.41 -1.41)"/>
+</g></svg>

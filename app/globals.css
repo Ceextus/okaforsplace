@@ -1,0 +1,197 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * Okafor's Place — "Abuja After Hours" design tokens.
+ * Source: docs/PRD.md §6 + the style guide in "Okafor's Place — Logo & Website.pdf".
+ * Light mode only for v1.
+ */
+
+@theme inline {
+  /* Brand palette — use these directly (bg-navy, text-gold-text, …) */
+  --color-navy: #071d3b;
+  --color-navy-2: #123765;
+  --color-gold: #f3c96f; /* fills, buttons, accents on navy */
+  --color-gold-text: #8a6418; /* small gold text on light backgrounds */
+  --color-gold-large: #b07d1e; /* highlighted display words on light */
+  --color-cream: #fff8e9;
+  --color-paper: #f5f7fb;
+  --color-ink: #12233c;
+  --color-slate: #617086; /* secondary text (alias of muted-foreground) */
+  --color-whatsapp: #12875b;
+  --color-hairline: rgb(7 29 59 / 0.1);
+
+  /* shadcn semantic colours, mapped to the brand below */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Type: Manrope for body/UI, Clash Display for headings and display */
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-clash), var(--font-manrope), ui-sans-serif, sans-serif;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --shadow-soft: 0 20px 50px -20px rgb(7 29 59 / 0.25);
+  --shadow-lift: 0 12px 24px -12px rgb(7 29 59 / 0.35);
+}
+
+:root {
+  --background: #f5f7fb; /* paper */
+  --foreground: #12233c; /* ink */
+  --card: #ffffff;
+  --card-foreground: #12233c;
+  --popover: #ffffff;
+  --popover-foreground: #12233c;
+  --primary: #071d3b; /* navy */
+  --primary-foreground: #fff8e9; /* cream */
+  --secondary: #fff8e9;
+  --secondary-foreground: #071d3b;
+  --muted: #e9edf3;
+  --muted-foreground: #617086;
+  --accent: #f3c96f; /* gold */
+  --accent-foreground: #071d3b;
+  --destructive: #b42318;
+  --border: rgb(7 29 59 / 0.1);
+  --input: rgb(7 29 59 / 0.16);
+  --ring: #b07d1e; /* ≥3:1 on both paper and navy */
+  --radius: 0.875rem; /* 14px — inputs */
+
+  /* Layout */
+  --gutter: clamp(20px, 5vw, 72px);
+  --header-h: 60px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 76px;
+  }
+}
+
+/* Centred content column: max 1240px of content plus side gutters */
+@utility shell {
+  width: 100%;
+  max-width: calc(1240px + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Small uppercase label above headings ("01 · COMMUNITY") */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgb(243 201 111 / 0.25);
+    touch-action: manipulation;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading text-balance text-navy;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.04;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: #f3c96f;
+    color: #071d3b;
+  }
+}
+
+/* Hero headline words: rise out of a mask once on load, CSS only (no JS on the LCP path).
+   Reduced motion: the global rule below cuts the animation to its end state. */
+.rise-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.rise-word {
+  display: inline-block;
+  animation: rise-word 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes rise-word {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+/* One-pass gold sheen over a headline (register success). Added by JS only, so reduced
+   motion / no JS shows plain navy text. */
+.sheen-run {
+  background: linear-gradient(110deg, #071d3b 42%, #d69f37 50%, #f3c96f 53%, #071d3b 61%) right / 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: sheen 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes sheen {
+  to {
+    background-position: left;
+  }
+}
+
+/* GSAP entrance guard (see enterGuard in app/layout.tsx) */
+html.js-enter:not(.js-enter-done) [data-enter] {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
