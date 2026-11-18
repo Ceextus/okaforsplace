@@ -15,5 +15,9 @@ create table if not exists public.pre_registrations (
 -- Only the server (service role) can insert; only the dashboard can read.
 alter table public.pre_registrations enable row level security;
 
+-- The server uses the service role. Newer projects don't auto-grant it table privileges,
+-- so grant them explicitly (anon/authenticated get nothing).
+grant select, insert, update, delete on table public.pre_registrations to service_role;
+
 create index if not exists pre_registrations_created_at_idx
   on public.pre_registrations (created_at desc);
