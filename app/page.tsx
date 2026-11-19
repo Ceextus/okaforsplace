@@ -37,9 +37,9 @@ export default function HomePage() {
       />
       <HomeHero />
       <CommunitySection />
-      <MarketplaceSection />
       <ConsultancySection />
       <ApproachSection />
+      <MarketplaceSection />
       <RegisterBand />
       <ConnectSection />
     </>

@@ -14,7 +14,7 @@ const POINTS = [
 ] as const
 
 /**
- * 03 · The Middleman Consultancy (PRD §7.2 section 4) — the navy, premium moment.
+ * 02 · The Middleman Consultancy (PRD §7.2 section 4) — the navy, premium moment.
  * Photo (cols 1–5) wipes open on scroll and drifts inside its frame; text (cols 7–12).
  * The disclaimer is required wherever the consultancy is described: keep it visible,
  * full-contrast and never collapsed.
@@ -52,7 +52,7 @@ export function ConsultancySection() {
         {/* Words */}
         <div className="lg:col-span-6 lg:col-start-7">
           <p data-rise className="eyebrow text-gold">
-            03 · Consultancy
+            02 · Consultancy
           </p>
           <h2
             id="consultancy-title"

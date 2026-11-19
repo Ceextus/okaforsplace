@@ -126,17 +126,6 @@ const PILLARS: Pillar[] = [
   },
   {
     num: "02",
-    eyebrow: "Marketplace",
-    title: "Discover opportunities",
-    body: "A place to showcase items and services, discover what is available and connect with people. Sellers send their product or service details, which can be reviewed before they are shared.",
-    cta: "Enquire about listings",
-    intent: "enquire",
-    img: "/images/shop-owner.jpg",
-    alt: "A shop owner smiling behind the counter of her provisions store",
-    position: "object-[62%_40%]",
-  },
-  {
-    num: "03",
     eyebrow: "The Middleman Consultancy",
     title: "Your bridge to better-informed decisions",
     body: "We help bring buyers and sellers together, facilitate communication and provide support with reviewing opportunities and transaction details before people commit their money.",
@@ -147,7 +136,18 @@ const PILLARS: Pillar[] = [
     alt: "Two men in suits looking over details on a phone together",
     position: "object-[50%_62%]",
     disclaimer: true,
+  },  {
+    num: "03",
+    eyebrow: "Marketplace",
+    title: "Discover opportunities",
+    body: "A place to showcase items and services, discover what is available and connect with people. Sellers send their product or service details, which can be reviewed before they are shared.",
+    cta: "Enquire about listings",
+    intent: "enquire",
+    img: "/images/shop-owner.jpg",
+    alt: "A shop owner smiling behind the counter of her provisions store",
+    position: "object-[62%_40%]",
   },
+
 ]
 
 export function AboutPillars() {

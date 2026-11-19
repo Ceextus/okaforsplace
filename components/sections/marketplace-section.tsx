@@ -43,7 +43,7 @@ const TILES: Tile[] = [
 ]
 
 /**
- * 02 · Marketplace (PRD §7.2 section 3).
+ * 03 · Marketplace (PRD §7.2 section 3).
  * Cream ground. Two linked photo tiles (whole tile opens WhatsApp with the matching
  * pre-filled message); on desktop the second sits 64px lower. Photos drift inside their
  * frames on scroll; on hover the tile lifts 2px, its photo zooms 1.03, the action underlines.
@@ -54,7 +54,7 @@ export function MarketplaceSection() {
       <div className="shell">
         <SectionHeading
           id="marketplace-title"
-          eyebrow="02 · Marketplace"
+          eyebrow="03 · Marketplace"
           title={
             <>
               Discover <span className="text-gold-large">opportunities</span>

@@ -15,18 +15,18 @@ const PILLARS = [
     img: "/images/networking-evening-event.jpg",
   },
   {
-    href: "#marketplace",
-    num: "02",
-    title: "Marketplace",
-    line: "Enquire, or list what you sell",
-    img: "/images/market-produce.jpg",
-  },
-  {
     href: "#consultancy",
-    num: "03",
+    num: "02",
     title: "Middleman Consultancy",
     line: "Support before you commit money",
     img: "/images/consultancy-documents.jpg",
+  },
+  {
+    href: "#marketplace",
+    num: "03",
+    title: "Marketplace",
+    line: "Enquire, or list what you sell",
+    img: "/images/market-produce.jpg",
   },
 ] as const
 

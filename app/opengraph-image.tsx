@@ -5,7 +5,7 @@ import { ImageResponse } from "next/og"
 import { SITE } from "@/lib/site"
 
 // Shared by every page that doesn't define its own (PRD §10: the logo on navy).
-export const alt = "Okafor's Place — Connect. Trade. Discover. Grow. An Abuja community, marketplace and consultancy."
+export const alt = "Okafor's Place — Connect. Trade. Discover. Grow. An Abuja community, consultancy and marketplace."
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -50,7 +50,7 @@ export default async function OpengraphImage() {
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 28, color: "rgba(255,248,233,0.7)" }}>
-          <span>Community · Marketplace · Consultancy</span>
+          <span>Community · Consultancy · Marketplace</span>
           <span style={{ color: "#F3C96F" }}>{SITE.domain}</span>
         </div>
       </div>

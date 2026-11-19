@@ -29,9 +29,9 @@ export const metadata: Metadata = {
 
 const INTENTS: { intent: WaIntent; label: string; line: string; icon: LucideIcon }[] = [
   { intent: "join", label: "Join the community", line: "Ask the admin to add you", icon: Users },
+  { intent: "consultation", label: "Request a consultation", line: "The Middleman Consultancy", icon: Handshake },
   { intent: "enquire", label: "Enquire about a listing", line: "Ask about something you saw", icon: Search },
   { intent: "sell", label: "Sell a product or service", line: "Send us the details to review", icon: Store },
-  { intent: "consultation", label: "Request a consultation", line: "The Middleman Consultancy", icon: Handshake },
   { intent: "general", label: "General question", line: "Anything else on your mind", icon: MessageCircleQuestion },
 ]
 

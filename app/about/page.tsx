@@ -7,7 +7,7 @@ import { RegisterBand } from "@/components/sections/register-band"
 export const metadata: Metadata = {
   title: "About us",
   description:
-    "Okafor's Place is an Abuja community bringing people, professionals and businesses together: community, marketplace and the Middleman Consultancy.",
+    "Okafor's Place is an Abuja community bringing people, professionals and businesses together: community, the Middleman Consultancy and marketplace.",
 }
 
 export default function AboutPage() {

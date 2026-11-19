@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 
 const PERKS = [
   { icon: Users, title: "Community", text: "Join the WhatsApp community for networking, updates and fun." },
-  { icon: Store, title: "Marketplace", text: "Enquire about listings, or share what you sell." },
   { icon: Handshake, title: "Consultancy", text: "Support reviewing opportunities before you commit money." },
+  { icon: Store, title: "Marketplace", text: "Enquire about listings, or share what you sell." },
 ] as const
 
 function Perks({ className }: { className?: string }) {

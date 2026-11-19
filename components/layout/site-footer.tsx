@@ -17,8 +17,8 @@ const EXPLORE = [
 
 const PILLARS = [
   { href: "/#community", label: "Community" },
-  { href: "/#marketplace", label: "Marketplace" },
   { href: "/#consultancy", label: "Consultancy" },
+  { href: "/#marketplace", label: "Marketplace" },
 ] as const
 
 /** Year captured into the static shell, refreshed daily (cache components: no bare new Date()). */
@@ -128,7 +128,7 @@ export function SiteFooter() {
           <p>
             {SITE.domain} · © <CopyrightYear /> {SITE.name}
           </p>
-          <p>Community · Marketplace · Consultancy</p>
+          <p>Community · Consultancy · Marketplace</p>
         </div>
       </div>
     </FooterMotion>
