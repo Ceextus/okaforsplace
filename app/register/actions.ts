@@ -45,7 +45,11 @@ export async function registerAction(_prev: RegisterState, formData: FormData): 
   const h = await headers()
   const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown"
   if (rateLimited(ip)) {
-    return { status: "error", message: "Too many attempts. Please wait a few minutes, or message us on WhatsApp.", values }
+    return {
+      status: "error",
+      message: "Too many attempts. Please wait a few minutes, or message us on WhatsApp.",
+      values,
+    }
   }
 
   const supabase = getSupabaseAdmin()
@@ -63,6 +67,7 @@ export async function registerAction(_prev: RegisterState, formData: FormData): 
 
   const { error } = await supabase.from("pre_registrations").insert({
     full_name: values.full_name,
+    email: values.email,
     location: values.location,
     phone,
     user_agent: h.get("user-agent")?.slice(0, 300) ?? null,

@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, ArrowUpRight, Smartphone } from "lucide-react"
+import { ArrowRight, ArrowUpRight, MessageCircle, Smartphone } from "lucide-react"
 
 import { HeroMotion } from "@/components/sections/hero-motion"
 import { externalLinkProps, waLink } from "@/lib/site"
@@ -43,7 +43,7 @@ function RiseWord({ i, className, children }: { i: number; className?: string; c
 /**
  * Home hero — "Abuja After Hours".
  * Full-bleed dusk skyline, a 4-column hairline grid over it (desktop), the headline and an
- * inline pre-register field (bottom-left), the client's rooftop photo as a linked tile, and the
+ * inline pre-register field (bottom-left), an animated "join the community" button, and the
  * three pillars as grid cells along the foot. Motion lives in <HeroMotion>.
  */
 export function HomeHero() {
@@ -184,33 +184,36 @@ export function HomeHero() {
             </a>
           </div>
 
-          {/* Client's rooftop photo as a linked tile (desktop) */}
-          <a
-            href={waLink("join")}
-            {...externalLinkProps}
-            style={{ "--d": "0.55s" } as React.CSSProperties}
-            className="clip-up group relative hidden self-end overflow-hidden lg:block lg:h-[min(46vh,360px)]"
+          {/* Client's request: an animated "join the community" button in this slot (desktop).
+              Pulsing rings + bobbing icon loop in CSS (.join-cta in globals.css); still under
+              reduced motion. The wrapper runs the entrance, the link owns the hover transform. */}
+          <div
+            style={{ "--d": "0.6s" } as React.CSSProperties}
+            className="rise-in hidden items-end justify-center pb-14 lg:flex"
           >
-            <Image
-              src="/images/hero-abuja-dusk.jpg"
-              alt="Guests on a rooftop lounge over Abuja at dusk"
-              fill
-              sizes="(min-width: 1024px) 25vw, 1px"
-              className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-[1.04]"
-            />
-            <span className="absolute inset-0 bg-linear-to-t from-navy/95 via-navy/30 to-transparent" />
-            <span className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-3">
-              <span>
-                <span className="eyebrow block text-gold">Join the community</span>
-                <span className="mt-2 block font-heading text-lg leading-tight font-semibold xl:text-[1.375rem]">
-                  Ask the admin on WhatsApp
+            <a
+              href={waLink("join")}
+              {...externalLinkProps}
+              className="join-cta group relative grid size-[clamp(11rem,15vw,13.5rem)] place-items-center rounded-full bg-gold text-center text-navy shadow-[0_24px_60px_-20px_rgb(243_201_111/0.55)] transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-1 hover:scale-[1.03] focus-visible:outline-cream"
+            >
+              <span aria-hidden="true" className="join-ring" />
+              <span aria-hidden="true" className="join-ring join-ring--late" />
+              <span className="relative flex flex-col items-center gap-2 px-6">
+                <span className="join-bob grid size-11 place-items-center rounded-full bg-navy text-gold">
+                  <MessageCircle aria-hidden="true" strokeWidth={1.75} className="size-5" />
                 </span>
+                <span className="font-heading text-[1.0625rem] leading-[1.15] font-semibold xl:text-lg">
+                  Click here to join the community
+                </span>
+                <ArrowUpRight
+                  aria-hidden="true"
+                  strokeWidth={2}
+                  className="size-5 transition-transform duration-200 group-hover:translate-x-[3px] group-hover:-translate-y-[3px]"
+                />
               </span>
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-cream text-navy transition-transform duration-200 group-hover:-translate-y-0.5">
-                <ArrowUpRight aria-hidden="true" strokeWidth={1.75} className="size-5" />
-              </span>
-            </span>
-          </a>
+              <span className="sr-only"> (opens WhatsApp)</span>
+            </a>
+          </div>
         </div>
 
         {/* Foot row of grid cells: one fact + the three pillars (desktop) */}

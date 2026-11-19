@@ -4,6 +4,7 @@
 create table if not exists public.pre_registrations (
   id          uuid primary key default gen_random_uuid(),
   full_name   text not null check (char_length(full_name) between 2 and 80),
+  email       text check (email is null or (char_length(email) <= 254 and email ~ '^[^\s@]+@[^\s@]+\.[^\s@]{2,}$')),
   location    text not null check (char_length(location) between 2 and 80),
   phone       text not null unique check (phone ~ '^\+234[789][01]\d{8}$'),
   source      text not null default 'website',

@@ -4,6 +4,7 @@ import { getSupabaseAdmin } from "@/lib/supabase/server"
 export type Registration = {
   id: string
   full_name: string
+  email: string | null
   location: string
   phone: string
   created_at: string
@@ -18,7 +19,7 @@ export async function fetchAllRegistrations(): Promise<Registration[]> {
   for (let from = 0; ; from += pageSize) {
     const { data, error } = await supabase
       .from("pre_registrations")
-      .select("id, full_name, location, phone, created_at")
+      .select("id, full_name, email, location, phone, created_at")
       .order("created_at", { ascending: false })
       .range(from, from + pageSize - 1)
     if (error) throw new Error(`${error.code} ${error.message}`)

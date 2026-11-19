@@ -41,6 +41,7 @@ async function AdminGate() {
     rows = (await fetchAllRegistrations()).map((r) => ({
       id: r.id,
       full_name: r.full_name,
+      email: r.email,
       location: r.location,
       phone: r.phone,
       registered: formatRegisteredAt(r.created_at),
@@ -75,7 +76,10 @@ async function AdminGate() {
             Download CSV
           </a>
           <form action={logoutAction}>
-            <button type="submit" className={cn(buttonVariants({ variant: "outline-dark", size: "lg" }), "w-full sm:w-auto")}>
+            <button
+              type="submit"
+              className={cn(buttonVariants({ variant: "outline-dark", size: "lg" }), "w-full sm:w-auto")}
+            >
               <LogOut aria-hidden="true" strokeWidth={1.75} />
               Sign out
             </button>

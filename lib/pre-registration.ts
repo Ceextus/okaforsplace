@@ -1,10 +1,10 @@
 /**
  * Pre-registration rules (PRD §7.3), shared by the client form (instant feedback) and the
  * Server Action (the real check). Keep in sync with the CHECKs in
- * supabase/migrations/0001_pre_registrations.sql.
+ * supabase/migrations/0001_pre_registrations.sql and 0003_add_email.sql.
  */
 
-export type Field = "full_name" | "location" | "phone"
+export type Field = "full_name" | "email" | "location" | "phone"
 export type FieldErrors = Partial<Record<Field, string>>
 export type Values = Record<Field, string>
 
@@ -25,6 +25,13 @@ export function normalizeNigerianPhone(raw: string): string | null {
   return /^[789][01]\d{8}$/.test(digits) ? `+234${digits}` : null
 }
 
+/** Practical email check (mirrors the DB CHECK): something@domain.tld, no spaces, ≤ 254 chars. */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+
+export function normalizeEmail(raw: string): string {
+  return raw.trim().toLowerCase()
+}
+
 /** +2348031234567 → +234 803 123 4567 */
 export function formatNigerianPhone(e164: string): string {
   const m = /^\+234(\d{3})(\d{3})(\d{4})$/.exec(e164)
@@ -32,8 +39,16 @@ export function formatNigerianPhone(e164: string): string {
 }
 
 export function readValues(formData: FormData): Values {
-  const get = (k: Field) => String(formData.get(k) ?? "").trim().replace(/\s+/g, " ")
-  return { full_name: get("full_name"), location: get("location"), phone: get("phone") }
+  const get = (k: Field) =>
+    String(formData.get(k) ?? "")
+      .trim()
+      .replace(/\s+/g, " ")
+  return {
+    full_name: get("full_name"),
+    email: normalizeEmail(String(formData.get("email") ?? "")),
+    location: get("location"),
+    phone: get("phone"),
+  }
 }
 
 export function validateField(field: Field, value: string): string | undefined {
@@ -42,6 +57,10 @@ export function validateField(field: Field, value: string): string | undefined {
     case "full_name":
       if (!v) return "Enter your full name."
       if (v.length < 2 || v.length > 80) return "Your name should be between 2 and 80 characters."
+      return
+    case "email":
+      if (!v) return "Enter your email address."
+      if (v.length > 254 || !EMAIL_RE.test(v)) return "Enter a valid email address, e.g. name@example.com."
       return
     case "location":
       if (!v) return "Enter where you are, e.g. Wuse 2, Abuja."
@@ -56,7 +75,7 @@ export function validateField(field: Field, value: string): string | undefined {
 
 export function validate(values: Values): FieldErrors {
   const errors: FieldErrors = {}
-  for (const f of ["full_name", "location", "phone"] as const) {
+  for (const f of ["full_name", "email", "location", "phone"] as const) {
     const e = validateField(f, values[f])
     if (e) errors[f] = e
   }

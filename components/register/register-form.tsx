@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils"
 const initialState: RegisterState = { status: "idle" }
 const noopSubscribe = () => () => {}
 const readUrlPhone = () => new URLSearchParams(window.location.search).get("phone")?.slice(0, 20) ?? ""
-const EMPTY: Values = { full_name: "", location: "", phone: "" }
+const EMPTY: Values = { full_name: "", email: "", location: "", phone: "" }
 
 const inputClass =
   "h-14 rounded-[14px] border-navy/15 bg-white px-4 text-base text-navy shadow-[inset_0_1px_2px_rgb(7_29_59/0.04)] placeholder:text-slate/80 hover:border-navy/30 focus-visible:border-gold-large focus-visible:ring-[3px] focus-visible:ring-gold/40 md:text-base aria-invalid:border-destructive aria-invalid:ring-destructive/15"
@@ -60,7 +60,7 @@ export function RegisterForm() {
     const errs = validate(values)
     if (Object.keys(errs).length) {
       e.preventDefault()
-      setTouched({ full_name: true, location: true, phone: true })
+      setTouched({ full_name: true, email: true, location: true, phone: true })
       setClientErrors(errs)
       const first = (Object.keys(errs) as FieldName[])[0]
       document.getElementById(`reg-${first}`)?.focus()
@@ -77,6 +77,21 @@ export function RegisterForm() {
         error={errorFor("full_name")}
         onChange={onChange("full_name")}
         onBlur={onBlur("full_name")}
+      />
+      <TextField
+        name="email"
+        label="Email address"
+        type="email"
+        inputMode="email"
+        autoComplete="email"
+        autoCapitalize="off"
+        spellCheck={false}
+        maxLength={254}
+        placeholder="e.g. name@example.com…"
+        value={values.email}
+        error={errorFor("email")}
+        onChange={onChange("email")}
+        onBlur={onBlur("email")}
       />
       <TextField
         name="location"
@@ -136,11 +151,18 @@ export function RegisterForm() {
       </div>
 
       {state.status === "error" && (
-        <div role="alert" className="flex gap-3 rounded-[14px] border border-destructive/25 bg-destructive/5 p-4 text-[0.9375rem] text-ink">
+        <div
+          role="alert"
+          className="flex gap-3 rounded-[14px] border border-destructive/25 bg-destructive/5 p-4 text-[0.9375rem] text-ink"
+        >
           <AlertCircle aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-destructive" />
           <p>
             {state.message}{" "}
-            <a href={waLink("general")} {...externalLinkProps} className="font-semibold text-whatsapp underline underline-offset-4">
+            <a
+              href={waLink("general")}
+              {...externalLinkProps}
+              className="font-semibold text-whatsapp underline underline-offset-4"
+            >
               Send it on WhatsApp instead
             </a>
           </p>
@@ -164,7 +186,11 @@ export function RegisterForm() {
 
       <p className="text-center text-[0.9375rem] text-ink/80 lg:hidden">
         Prefer WhatsApp?{" "}
-        <a href={waLink("join")} {...externalLinkProps} className="inline-flex items-center gap-1 font-semibold text-whatsapp">
+        <a
+          href={waLink("join")}
+          {...externalLinkProps}
+          className="inline-flex items-center gap-1 font-semibold text-whatsapp"
+        >
           <MessageCircle aria-hidden="true" strokeWidth={1.75} className="size-4" />
           Chat with us
         </a>

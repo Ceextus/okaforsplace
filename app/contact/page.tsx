@@ -35,31 +35,27 @@ const INTENTS: { intent: WaIntent; label: string; line: string; icon: LucideIcon
   { intent: "general", label: "General question", line: "Anything else on your mind", icon: MessageCircleQuestion },
 ]
 
-/* ───────── Hero ───────── */
+/* ───────── Let's connect (navy band; the WhatsApp card overlaps its foot) ───────── */
 
-function ContactHero() {
+function LetsConnect() {
   return (
     <SectionMotion aria-labelledby="contact-title" className="relative isolate overflow-hidden bg-navy text-cream">
       <div
         aria-hidden="true"
         className="absolute -top-56 right-[-15%] -z-10 size-[46rem] rounded-full bg-[radial-gradient(closest-side,rgb(243_201_111/0.13),transparent)]"
       />
-      <div className="shell grid gap-6 pt-32 pb-40 lg:grid-cols-12 lg:items-end lg:gap-x-6 lg:pt-44 lg:pb-56">
+      <div className="shell grid gap-6 pt-24 pb-40 lg:grid-cols-12 lg:items-end lg:gap-x-6 lg:pt-36 lg:pb-56">
         <div className="lg:col-span-7">
-          <p style={{ "--d": "0.1s" } as React.CSSProperties} className="rise-in eyebrow text-gold">
+          <p data-rise className="eyebrow text-gold">
             Contact
           </p>
-          <h1
-            id="contact-title"
-            style={{ "--d": "0.18s" } as React.CSSProperties}
-            className="settle mt-5 text-[clamp(3.25rem,8vw,7rem)] leading-[0.92] text-cream"
-          >
+          <h2 id="contact-title" data-split className="mt-5 text-[clamp(3.25rem,8vw,7rem)] leading-[0.92] text-cream">
             Let&rsquo;s <span className="text-gold">connect.</span>
-          </h1>
+          </h2>
         </div>
         <p
-          style={{ "--d": "0.3s" } as React.CSSProperties}
-          className="rise-in max-w-[38ch] text-lg leading-relaxed text-cream/75 lg:col-span-4 lg:col-start-9 lg:pb-3"
+          data-rise
+          className="max-w-[38ch] text-lg leading-relaxed text-cream/75 lg:col-span-4 lg:col-start-9 lg:pb-3"
         >
           Have a question or an opportunity? Tell us what you need, and we&rsquo;ll get back to you.
         </p>
@@ -74,7 +70,7 @@ function PrimaryCard() {
   return (
     <SectionMotion aria-label="Message us on WhatsApp" className="relative z-10">
       <div className="shell -mt-28 grid gap-6 lg:-mt-40 lg:grid-cols-12 lg:gap-x-6">
-        <div style={{ "--d": "0.4s" } as React.CSSProperties} className="rise-in lg:col-span-7">
+        <div data-rise className="lg:col-span-7">
           <div className="flex h-full flex-col rounded-[28px] bg-white p-6 shadow-[0_40px_80px_-36px_rgb(7_29_59/0.45)] sm:p-10 lg:p-12">
             <div className="flex items-center gap-4">
               <span className="grid size-14 place-items-center rounded-2xl bg-whatsapp text-white">
@@ -115,9 +111,10 @@ function PrimaryCard() {
         </div>
 
         <div className="hidden lg:col-span-5 lg:block">
-          <div className="rise-in relative h-full min-h-[420px] overflow-hidden rounded-[28px] bg-navy">
+          <div data-wipe className="relative h-full min-h-[420px] overflow-hidden rounded-[28px] bg-navy">
             <div data-parallax="5" className="absolute inset-x-0 -inset-y-[7%]">
               <Image
+                data-wipe-img
                 src="/images/hero-abuja-dusk.jpg"
                 alt="Guests on a rooftop lounge over Abuja at dusk"
                 fill
@@ -132,15 +129,17 @@ function PrimaryCard() {
   )
 }
 
-/* ───────── What can we help with? ───────── */
+/* ───────── What can we help with? (top of the page — client request) ───────── */
 
 function Intents() {
   return (
-    <SectionMotion aria-labelledby="intents-title" className="bg-paper pt-24 pb-20 lg:pt-36 lg:pb-28">
+    <SectionMotion aria-labelledby="intents-title" className="bg-paper pt-32 pb-24 lg:pt-44 lg:pb-32">
       <div className="shell">
         <SectionHeading
           id="intents-title"
-          eyebrow="Pick a topic"
+          as="h1"
+          motion="load"
+          eyebrow="Contact · Pick a topic"
           title={
             <>
               What can we <span className="text-gold-large">help with?</span>
@@ -151,8 +150,12 @@ function Intents() {
 
         <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:mt-16 lg:grid-cols-6 lg:gap-6">
           {INTENTS.map(({ intent, label, line, icon: Icon }, i) => (
-            // [data-rise] on the <li>: the link owns the hover transform.
-            <li key={intent} data-rise className={cn("lg:col-span-2", i > 2 && "lg:col-span-3")}>
+            // Entrance on the <li> (CSS, on screen at load); the link owns the hover transform.
+            <li
+              key={intent}
+              style={{ "--d": `${0.35 + i * 0.06}s` } as React.CSSProperties}
+              className={cn("rise-in lg:col-span-2", i > 2 && "lg:col-span-3")}
+            >
               <a
                 href={waLink(intent)}
                 {...externalLinkProps}
@@ -247,9 +250,9 @@ function OtherWays() {
 export default function ContactPage() {
   return (
     <>
-      <ContactHero />
-      <PrimaryCard />
       <Intents />
+      <LetsConnect />
+      <PrimaryCard />
       <OtherWays />
     </>
   )

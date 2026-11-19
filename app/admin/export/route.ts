@@ -23,11 +23,18 @@ export async function GET() {
     return new Response("Could not load registrations. Please try again.", { status: 500 })
   }
 
-  const header = ["Full name", "Location", "Phone (WhatsApp)", "Registered (Lagos time)", "Registered (ISO)"]
+  const header = ["Full name", "Email", "Location", "Phone (WhatsApp)", "Registered (Lagos time)", "Registered (ISO)"]
   const lines = [
     header.map(cell).join(","),
     ...rows.map((r) =>
-      [cell(r.full_name), cell(r.location), phoneCell(r.phone), cell(formatRegisteredAt(r.created_at)), cell(r.created_at)].join(",")
+      [
+        cell(r.full_name),
+        cell(r.email ?? ""),
+        cell(r.location),
+        phoneCell(r.phone),
+        cell(formatRegisteredAt(r.created_at)),
+        cell(r.created_at),
+      ].join(","),
     ),
   ]
   // UTF-8 BOM so Excel reads names with accents correctly.

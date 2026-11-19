@@ -26,7 +26,7 @@ It has three pillars, in this priority order (use it everywhere they're listed �
 ## 2. Goals & success criteria
 
 1. Visitors understand in under 10 seconds what Okafor's Place is and its three pillars.
-2. Visitors can pre-register (name, location, phone) in under 30 seconds on a phone.
+2. Visitors can pre-register (name, email, location, phone) in under 30 seconds on a phone.
 3. Every page has a one-tap path to WhatsApp.
 4. The site feels premium, trustworthy and local — not a generic template or "AI-made" page.
 5. Lighthouse (mobile): Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95.
@@ -40,7 +40,7 @@ It has three pillars, in this priority order (use it everywhere they're listed �
 
 ### In scope (v1)
 1. **Landing page** — `/`
-2. **Pre-registration page** — `/register` (name, location, phone → Supabase)
+2. **Pre-registration page** — `/register` (name, email, location, phone → Supabase)
 3. **About us** — `/about`
 4. **Contact us** — `/contact`
 5. Shared header, footer, floating WhatsApp button, 404 page, SEO metadata, favicon/OG image.
@@ -169,6 +169,7 @@ Sections in order (pillars numbered 01 Community · 02 Consultancy · 03 Marketp
 | Field | Name | Type | Rules |
 |---|---|---|---|
 | Full name | `full_name` | text, `autocomplete="name"` | required, 2–80 chars, trimmed |
+| Email address | `email` | email, `inputmode="email"`, `autocomplete="email"` | required (client request, 2026-11-19), ≤ 254 chars, `name@domain.tld`; stored lowercased |
 | Location | `location` | text, `autocomplete="address-level2"` | required, 2–80 chars; placeholder "e.g. Wuse 2, Abuja" |
 | Phone number | `phone` | tel, `inputmode="tel"`, `autocomplete="tel"` | required, Nigerian number. Accept `0803…`, `803…`, `+234803…`, `234803…`, spaces/dashes. Normalise to E.164 `+234XXXXXXXXXX` (10 digits after 234, first digit 7/8/9). |
 | (hidden honeypot) | `company` | text, visually hidden, `tabindex=-1` | must be empty, else silently "succeed" without saving |
@@ -199,10 +200,12 @@ Sections in order (pillars numbered 01 Community · 02 Consultancy · 03 Marketp
 ## 8. Supabase (pre-registrations)
 
 ### 8.1 Table — run in Supabase SQL editor (save as `supabase/migrations/0001_pre_registrations.sql`)
+Databases created before later changes also need `0002_grant_service_role.sql` (service-role privileges) and `0003_add_email.sql` (email column), in order.
 ```sql
 create table if not exists public.pre_registrations (
   id          uuid primary key default gen_random_uuid(),
   full_name   text not null check (char_length(full_name) between 2 and 80),
+  email       text check (email is null or (char_length(email) <= 254 and email ~ '^[^\s@]+@[^\s@]+\.[^\s@]{2,}$')),
   location    text not null check (char_length(location) between 2 and 80),
   phone       text not null unique check (phone ~ '^\+234[789][01]\d{8}$'),
   source      text not null default 'website',
@@ -284,7 +287,7 @@ Stop after each milestone for review.
 ## 12. Acceptance checklist
 
 - [ ] All four pages built, linked from header/footer, responsive, no horizontal scroll.
-- [ ] Pre-registration saves a row in Supabase with phone normalised to `+234…`; duplicate phone shows the friendly message; invalid input shows field errors; honeypot submissions are not saved.
+- [ ] Pre-registration saves a row in Supabase with email (lowercased) and phone normalised to `+234…`; duplicate phone shows the friendly message; invalid input shows field errors; honeypot submissions are not saved.
 - [ ] Service role key never appears in client bundles (`grep` the `.next/static` output).
 - [ ] Consultancy disclaimer visible on Landing and About.
 - [ ] Every WhatsApp CTA opens the correct pre-filled message.
