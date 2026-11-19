@@ -8,13 +8,13 @@
 
 **Okafor's Place** is an Abuja-based community and business platform. Tagline: **Connect. Trade. Discover. Grow.**
 
-It has three pillars:
+It has three pillars, in this priority order (use it everywhere they're listed — hero tiles, section order and numbering, About, Register, Contact, footer, share image):
 
 | Pillar | What it is today (v1) | Later |
 |---|---|---|
-| **Community & Networking** | A WhatsApp community. People message the administrator to be added. Networking, business conversations, updates and fun. | — |
-| **Marketplace** | Enquiry-only. Buyers enquire about listings; sellers send product/service details, which are reviewed before being shared. | Searchable marketplace + online listing submission (out of scope for v1). |
-| **The Middleman Consultancy** | Brings buyers and sellers together, facilitates communication, and helps review opportunities and transaction details before people commit money. | — |
+| **1. Community & Networking** | A WhatsApp community. People message the administrator to be added. Networking, business conversations, updates and fun. | — |
+| **2. The Middleman Consultancy** | Brings buyers and sellers together, facilitates communication, and helps review opportunities and transaction details before people commit money. | — |
+| **3. Marketplace** | Enquiry-only. Buyers enquire about listings; sellers send product/service details, which are reviewed before being shared. | Searchable marketplace + online listing submission (out of scope for v1). |
 
 **v1 goal:** a polished pre-launch website that explains the brand, collects **pre-registrations** (stored in Supabase), and routes every other enquiry to **WhatsApp**.
 
@@ -120,12 +120,12 @@ Copy below is the client's latest wording — use it, tidy grammar lightly, don'
 
 ### 7.1 Global layout
 - **Header (sticky, navy):** logo (`logo-on-dark.svg`; `mark-on-dark.svg` + "OKAFOR'S PLACE" on small screens) · nav: Home, About, Contact · primary CTA **"Pre-register"** (gold) → `/register`. Mobile: shadcn `Sheet` menu.
-- **Footer (navy):** logo, tagline "Connect. Trade. Discover. Grow.", links (Home, About, Contact, Pre-register), "Community · Marketplace · Consultancy", WhatsApp number, email (when set), `okaforsplace.com.ng · © {current year} Okafor's Place`.
+- **Footer (navy):** logo, tagline "Connect. Trade. Discover. Grow.", links (Home, About, Contact, Pre-register), "Community · Consultancy · Marketplace", WhatsApp number, email (when set), `okaforsplace.com.ng · © {current year} Okafor's Place`.
 - **Floating WhatsApp button** (bottom-right, green, all pages except it must not cover the register form's submit button on mobile).
 - **404 page** (`app/not-found.tsx`) in brand style with links home and to WhatsApp.
 
 ### 7.2 Landing page — `/`
-Sections in order:
+Sections in order (pillars numbered 01 Community · 02 Consultancy · 03 Marketplace):
 
 1. **Hero**
    - Eyebrow: "Welcome to our community"
@@ -135,27 +135,27 @@ Sections in order:
    - CTAs: **Pre-register now** → `/register` (primary) · **Chat on WhatsApp** (secondary)
    - Small pre-launch note: "We're launching soon — pre-register to be among the first members."
    - Hero image (Abuja rooftop at dusk).
-2. **More than a website — "A place to connect and grow"**
+2. **More than a website — "A place to connect and grow"** (pillar 01)
    - Intro: "Meet people, exchange ideas, share updates and discover opportunities in a friendly community."
    - 3 cards:
      - **Community & networking** — "Connect with people, make friends, share ideas and build useful relationships."
      - **Business conversations** — "Discuss ideas, discover opportunities and grow your network."
      - **Updates & fun** — "Stay connected through conversations, updates and a welcoming community spirit."
    - CTA: **Ask to join on WhatsApp** — "Message the administrator and you can be added to the community."
-3. **Discover opportunities — "Marketplace"**
+3. **Guidance & facilitation — "The Middleman Consultancy"** (pillar 02)
+   - Sub: "Your bridge to better-informed business decisions."
+   - Body: "We help bring buyers and sellers together, facilitate communication and provide support with reviewing opportunities and transaction details before people commit their money."
+   - **Disclaimer (must appear wherever the consultancy is described, visibly, not hidden):** "The scope of each review will be agreed in advance. Due diligence can reduce uncertainty, but it cannot guarantee an outcome or eliminate every risk."
+   - CTA: **Request a consultation** (WhatsApp)
+4. **Our approach — "Connect. Review. Proceed with clarity."** (follows the consultancy, same navy chapter)
+   - "Clear communication, careful questions and practical support for buyers and sellers."
+   - Render as 3 steps: **Connect** → **Review** → **Proceed with clarity** (short one-line description each, derived from the consultancy copy).
+5. **Discover opportunities — "Marketplace"** (pillar 03)
    - Intro: "A place to showcase items and services, discover what is available and connect with people."
    - Two cards:
      - **Browse & discover — "Find what you're looking for."** "Explore products, services and business opportunities shared by the community." CTA: **Enquire about listings** (WhatsApp)
      - **For sellers & businesses — "Have something to offer?"** "Contact us with your product or service details. Listings can be reviewed before they are shared." CTA: **Submit an enquiry** (WhatsApp)
    - Small note: "A full searchable marketplace and online listing submissions are coming later."
-4. **Guidance & facilitation — "The Middleman Consultancy"**
-   - Sub: "Your bridge to better-informed business decisions."
-   - Body: "We help bring buyers and sellers together, facilitate communication and provide support with reviewing opportunities and transaction details before people commit their money."
-   - **Disclaimer (must appear wherever the consultancy is described, visibly, not hidden):** "The scope of each review will be agreed in advance. Due diligence can reduce uncertainty, but it cannot guarantee an outcome or eliminate every risk."
-   - CTA: **Request a consultation** (WhatsApp)
-5. **Our approach — "Connect. Review. Proceed with clarity."**
-   - "Clear communication, careful questions and practical support for buyers and sellers."
-   - Render as 3 steps: **Connect** → **Review** → **Proceed with clarity** (short one-line description each, derived from the consultancy copy).
 6. **Pre-register CTA band** — "Be among the first to join Okafor's Place." → **Pre-register** button.
 7. **Let's connect — "Have a question or an opportunity?"**
    - "Contact Okafor's Place directly on WhatsApp. Tell us what you need, and we'll get back to you."
@@ -163,7 +163,7 @@ Sections in order:
 
 ### 7.3 Pre-registration — `/register`
 - Heading: "Pre-register for Okafor's Place" · short lead: "We're launching soon. Leave your details and we'll reach out when we open."
-- Side panel/aside (desktop) or below form (mobile): what members get (community, marketplace, consultancy — one line each) + "Prefer WhatsApp? Chat with us".
+- Side panel/aside (desktop) or below form (mobile): what members get (community, consultancy, marketplace — one line each, in that order) + "Prefer WhatsApp? Chat with us".
 - **Form** (shadcn `Field`/`Input`/`Button`, labels always visible, no placeholder-only labels):
 
 | Field | Name | Type | Rules |
@@ -183,7 +183,7 @@ Sections in order:
 ### 7.4 About us — `/about`
 - Hero: "About Okafor's Place" · "A welcoming space for meaningful connections, business conversations, buying and selling, and guidance that helps you make more informed decisions."
 - **Our story / why we exist** — Abuja community bringing people, professionals and businesses together; trust and peace of mind before transacting. *(Client to supply founder story — use a clearly marked short placeholder paragraph built only from facts in this PRD; add an HTML comment `TODO(client): founder story`.)*
-- **What we do** — the three pillars in more depth (reuse copy from §7.2 sections 2–4), each with a CTA.
+- **What we do** — the three pillars in more depth, in priority order (Community, Consultancy, Marketplace; reuse copy from §7.2 sections 2, 3 and 5), each with a CTA.
 - **Our values** — Community & networking · Business opportunities · Peace & trust · Meaningful relationships (from client draft: "Meet and build valuable connections", "Find and share opportunities", "A reliable, supportive community", "Grow through trusted connections").
 - **Our approach** — Connect → Review → Proceed with clarity (+ consultancy disclaimer).
 - CTA band → `/register`.
@@ -191,7 +191,7 @@ Sections in order:
 ### 7.5 Contact us — `/contact`
 - Heading: "Let's connect" · "Have a question or an opportunity? Tell us what you need, and we'll get back to you."
 - **Primary card:** WhatsApp +234 902 850 3017 — big **Chat on WhatsApp** button; number shown as `tel:` link too.
-- **Quick-intent buttons** (each opens WhatsApp with its pre-filled message, §9): Join the community · Enquire about a listing · Sell a product or service · Request a consultation · General question.
+- **Quick-intent buttons** (each opens WhatsApp with its pre-filled message, §9): Join the community · Request a consultation · Enquire about a listing · Sell a product or service · General question.
 - Email card (only when email constant is set).
 - Location: "Abuja, Nigeria" (no map embed in v1).
 - No contact form in v1 (WhatsApp is the channel).
@@ -297,7 +297,7 @@ Stop after each milestone for review.
 
 1. **Email address** for "Email us".
 2. **Founder/story** text and photo for About.
-3. Should pre-registration also ask **what they're interested in** (Community / Marketplace / Consultancy)? (Not built in v1 unless confirmed — easy to add a `interests text[]` column.)
+3. Should pre-registration also ask **what they're interested in** (Community / Consultancy / Marketplace)? (Not built in v1 unless confirmed — easy to add a `interests text[]` column.)
 4. **Location:** free text (current plan) or a dropdown of Abuja areas / Nigerian states?
 5. Real **photos** to replace stand-ins (community events, the team, Abuja).
 6. **Launch date** — show a countdown on the landing page?
